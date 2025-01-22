@@ -13,13 +13,18 @@ exports.getTodoLists = async (req, res) => {
     let whereClause = '';
 
     //add on to base query
-    //let's assume the front end has a search  to search  for the description and title
-    if (search) {whereClause = ` WHERE title ILIKE $1 OR description ILIKE $1`; params.push(`%${search}%`);}
-
+    //let's assume the front end has a search  to search  for the description and title    
+    if (search) {
+      whereClause = ` WHERE LOWER(title) LIKE LOWER($1) OR LOWER(description) LIKE LOWER($1)`;
+      params.push(`%${search.toLowerCase()}%`);
+    }
     if (completed) {
-      const completedValue = completed === "true";
-      if (whereClause) {whereClause += ` AND completed = $${params.length + 1}`;
-      }else { whereClause = ` WHERE completed = $1`;}
+      const completedValue = completed === "true" ? 1 : 0;
+      if (whereClause) {
+        whereClause += ` AND completed = $${params.length + 1}`;
+      } else {
+        whereClause = ` WHERE completed = $1`;
+      }
       params.push(completedValue);
     }
 
@@ -29,10 +34,15 @@ exports.getTodoLists = async (req, res) => {
     //paginate the response
     params.push(limit, offset);
     db.all(query, params, (err, rows) => {
-      if (err) { return res.status(500).json({ error: "Failed to fetch To-dos" });}
+      if (err) { 
+        console.log(err);
+        
+        return res.status(500).json({ error: "Failed to fetch To-dos" });}
       const countQuery = `SELECT COUNT(*) AS total FROM todos` + whereClause;
       db.get(countQuery, params.slice(0, -2), (countErr, countRow) => {
-        if (countErr) {return res.status(500).json({ error: "Failed to fetch metadata" });}
+        if (countErr) {
+          console.log(countErr);
+          return res.status(500).json({ error: "Failed to fetch metadata" });}
         res.status(200).json({
           data: rows,
           metadata: {
