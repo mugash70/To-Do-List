@@ -52,7 +52,7 @@ The System is easy and runs through routes then controllers.
 ### Run DB initialization Sqlite (only if temp.sqlite is not in the cloned folder)
 Initilize DB and Table(GET) 
 ```
-http://localhost:7500/api/todo/setupdb
+http://localhost:5000/api/todo/setupdb
 
 sample params
 
@@ -67,7 +67,7 @@ sample params
 
 insert a todo (POST) 
 ```
-http://localhost:7500/api/
+http://localhost:5000/api/
 
 sample body
 
@@ -83,7 +83,7 @@ sample body
 
 get all todo list (GET) 
 ```
-http://localhost:7500/api/
+http://localhost:5000/api/
 ```
 <p align="center">
   <a href="" rel="noopener">
@@ -92,7 +92,7 @@ http://localhost:7500/api/
 
 get all todo list (GET)  specific
 ```
-http://localhost:7500/api/ccea71d6-5a47-4985-973a-9d5ec1f47ad9
+http://localhost:5000/api/ccea71d6-5a47-4985-973a-9d5ec1f47ad9
 ```
 <p align="center">
   <a href="" rel="noopener">
@@ -102,7 +102,7 @@ http://localhost:7500/api/ccea71d6-5a47-4985-973a-9d5ec1f47ad9
 
 Update the values (PUT) 
 ```
-http://localhost:7500/api/ccea71d6-5a47-4985-973a-9d5ec1f47ad9
+http://localhost:5000/api/ccea71d6-5a47-4985-973a-9d5ec1f47ad9
 
 sample body
 {
@@ -124,7 +124,7 @@ use auth header
 username=cyro
 password=Aezakmi1234
 
-http://localhost:7500/api
+http://localhost:5000/api
 ```
 <p align="center">
   <a href="" rel="noopener">
